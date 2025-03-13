@@ -1,0 +1,18 @@
+meta {
+  name: POST Article
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:8080/v1/articles
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "Livre C",
+    "prix": 25.0
+  }  
+}

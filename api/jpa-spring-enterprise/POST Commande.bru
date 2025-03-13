@@ -1,0 +1,20 @@
+meta {
+  name: POST Commande
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:8080/v1/commandes
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "clientId": 1,
+    "articleIds": [
+      4
+    ]
+  }  
+}
