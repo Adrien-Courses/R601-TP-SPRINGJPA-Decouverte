@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "jpa-spring-enterprise",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

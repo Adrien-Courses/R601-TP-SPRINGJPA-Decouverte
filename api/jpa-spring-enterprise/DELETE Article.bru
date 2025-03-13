@@ -1,0 +1,18 @@
+meta {
+  name: DELETE Article
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:8080/v1/articles/4
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "Livre Java",
+    "prix": 25.0
+  }  
+}

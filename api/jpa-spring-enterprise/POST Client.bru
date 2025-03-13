@@ -1,0 +1,18 @@
+meta {
+  name: POST Client
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:8080/v1/clients
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "nom": "Adrien CAUBEL",
+    "email": "adrien.caubel@iut-rodez.fr"
+  }  
+}
