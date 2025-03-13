@@ -1,8 +1,10 @@
 package fr.adriencaubel.jpa_spring_enterprise_architecture.commande;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,14 +24,33 @@ public class CommandeController {
         this.commandeService = commandeService;
     }
     
+    
+    @GetMapping("/lazy")
+    public ResponseEntity<List<CommandeResponseModel>> getAllCommandesLazy() {
+    	List<Commande> commandes = commandeService.getAllCommandesLazy();
+    	
+    	List<CommandeResponseModel> commandeResponseModels = toResponseModel(commandes);
+    	
+    	return ResponseEntity.ok(commandeResponseModels);
+    }
+    
     @GetMapping
-    public ResponseEntity<List<?>> getAllCommandes() {
-    	return null;
+    public ResponseEntity<List<CommandeResponseModel>> getAllCommandes() {
+    	List<Commande> commandes = commandeService.getAllCommandes();
+    	
+    	List<CommandeResponseModel> commandeResponseModels = toResponseModel(commandes);
+    	
+    	return ResponseEntity.ok(commandeResponseModels);
     }
 
+
     @PostMapping()
-    public ResponseEntity<?> createCommande(@RequestBody CommandeRequestModel commande) {
-       return null;
+    public ResponseEntity<CommandeResponseModel> createCommande(
+        @RequestBody CommandeRequestModel commande) {
+        Commande nouvelleCommande = commandeService.createCommande(commande);
+        
+        CommandeResponseModel response = new CommandeResponseModel(nouvelleCommande);
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     @DeleteMapping("/{id}")
@@ -37,4 +58,14 @@ public class CommandeController {
         commandeService.deleteCommande(id);
         return ResponseEntity.noContent().build();
     }
+    
+	private List<CommandeResponseModel> toResponseModel(List<Commande> commandes) {
+		List<CommandeResponseModel> commandeResponseModels = new ArrayList<CommandeResponseModel>();
+    	for(Commande commande : commandes) {
+        	CommandeResponseModel commandeResponseModel = new CommandeResponseModel(commande);
+        	commandeResponseModels.add(commandeResponseModel);
+
+    	}
+		return commandeResponseModels;
+	}
 }

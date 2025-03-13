@@ -15,6 +15,6 @@ public class ClientService {
     }
 
     public Client getById(long id) {
-    	return null;
+    	return clientRepository.findById(id).orElseThrow(() -> new EntityNotFoundException());
     }
 }
